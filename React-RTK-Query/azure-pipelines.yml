@@ -1,0 +1,41 @@
+trigger:
+  - main
+  - master
+  - develop
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '14.17.0'
+
+  - task: Npm@1
+    displayName: 'npm i'
+    inputs:
+      command: 'install'
+      verbose: false
+
+  - task: Npm@1
+    displayName: build
+    inputs:
+      command: custom
+      verbose: false
+      customCommand: 'run build'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'build'
+      ArtifactName: 'ihis-react-app-artifacts'
+      publishLocation: 'Container'
+
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      customCommand: 'run test:coverage'
+
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: 'Cobertura'
+      summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/cobertura-coverage.xml'

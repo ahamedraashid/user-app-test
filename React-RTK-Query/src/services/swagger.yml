@@ -1,0 +1,177 @@
+swagger: '2.0'
+info:
+  title: Synapxe Node HTTP API
+  version: '1'
+paths:
+  /patient:
+    post:
+      summary: createPatient
+      description: ''
+      tags:
+        - Patient
+      operationId: createPatient.post./patient
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Body required in the request
+          required: true
+          schema:
+            $ref: '#/definitions/PatientRequestBody'
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/PatientCreateResponse'
+  /patient/search:
+    post:
+      summary: searchPatients
+      description: ''
+      tags:
+        - Patient
+      operationId: searchPatients.post./patient/search
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/PatientSearchResponse'
+  /patient/{guid}:
+    get:
+      summary: getPatient
+      description: ''
+      tags:
+        - Patient
+      operationId: getPatient.get./patient/{guid}
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/Patient'
+    put:
+      summary: updatePatient
+      description: ''
+      tags:
+        - Patient
+      operationId: updatePatient.put./patient/{guid}
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Body required in the request
+          required: true
+          schema:
+            $ref: '#/definitions/PatientRequestBody'
+        - name: guid
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/Patient'
+definitions:
+  Patient:
+    properties:
+      guid:
+        title: Patient.guid
+        type: string
+      name:
+        title: Patient.name
+        type: string
+      phone:
+        title: Patient.phone
+        type: string
+      email:
+        title: Patient.email
+        type: string
+      updatedAt:
+        title: Patient.updatedAt
+        type: number
+      personType:
+        title: Patient.personType
+        type: string
+    required:
+      - guid
+      - name
+      - phone
+      - email
+      - updatedAt
+      - personType
+    additionalProperties: false
+    title: Patient
+    type: object
+  PatientSearchResponse:
+    properties:
+      total:
+        title: PatientSearchResponse.total
+        type: number
+      items:
+        items:
+          $ref: '#/definitions/Patient'
+          title: PatientSearchResponse.items.[]
+        title: PatientSearchResponse.items
+        type: array
+    required:
+      - total
+      - items
+    additionalProperties: false
+    title: PatientSearchResponse
+    type: object
+  PatientCreateResponse:
+    properties:
+      guid:
+        title: PatientCreateResponse.guid
+        type: string
+      name:
+        title: PatientCreateResponse.name
+        type: string
+      phone:
+        title: PatientCreateResponse.phone
+        type: string
+      email:
+        title: PatientCreateResponse.email
+        type: string
+    required:
+      - guid
+      - name
+      - phone
+      - email
+    additionalProperties: false
+    title: PatientCreateResponse
+    type: object
+  PatientRequestBody:
+    properties:
+      name:
+        title: PatientRequestBody.name
+        type: string
+      phone:
+        title: PatientRequestBody.phone
+        type: string
+      email:
+        title: PatientRequestBody.email
+        type: string
+    additionalProperties: false
+    title: PatientRequestBody
+    type: object
+securityDefinitions: {}

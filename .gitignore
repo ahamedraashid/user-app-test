@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/WebApi-NetCore/Presentation/bin/Debug/net7.0
+/WebApi-NetCore/Infrastructure/bin/Debug/net7.0
+/WebApi-NetCore/Domain/bin/Debug/net7.0
+/WebApi-NetCore/Application/bin/Debug/net7.0
+/WebApi-NetCore/.vs
